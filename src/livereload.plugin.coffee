@@ -10,6 +10,7 @@ module.exports = (BasePlugin) ->
 		config:
 			channel: '/docpad-livereload'
 			enabled: false
+			populateCollections: true
 			getSocket: null
 			inject: true
 
@@ -31,9 +32,13 @@ module.exports = (BasePlugin) ->
 		# Populate Collections
 		# Used to inject our scripts block with our socket generate listener
 		populateCollections: (opts) ->
+
 			# Prepare
 			docpad = @docpad
 			config = @getConfig()
+
+			# Do not populate Collections if it's not wanted
+			return @ unless config.populateCollections
 
 			# Blocks
 			generateBeforeBlock = config.generateBeforeBlock or """
@@ -180,4 +185,3 @@ module.exports = (BasePlugin) ->
 
 			# Chain
 			@
-
